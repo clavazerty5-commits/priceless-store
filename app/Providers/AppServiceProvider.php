@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
 
             // Force Vite to output https URLs on production
-            Vite::useAssetPathResolver(function (string $path) use ($host) {
+            Vite::createAssetPathsUsing(function (string $path) use ($host) {
                 return "https://{$host}/" . ltrim($path, '/');
             });
         }
