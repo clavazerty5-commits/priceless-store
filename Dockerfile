@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.4-apache
 
 # Install required system tools
 RUN apt-get update && apt-get install -y \
@@ -30,8 +30,8 @@ WORKDIR /var/www/html
 # Copy application code (including pre-compiled public/build assets)
 COPY . .
 
-# Install PHP dependencies without dev tools
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+# Install PHP dependencies
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
 
 # Make start script executable
 RUN chmod +x /var/www/html/start.sh
