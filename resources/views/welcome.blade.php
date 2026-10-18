@@ -139,7 +139,7 @@
          }">
         <div class="bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-700 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between shadow-xl gap-6">
             <div class="text-center md:text-right rtl:md:text-right ltr:md:text-left">
-                <span class="inline-block bg-white/20 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">⚡ تخفيضات البرق</span>
+                <span class="inline-block bg-white/20 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">{{ __('⚡ تخفيضات البرق') }}</span>
                 <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">{{ __('عرض خاص ومحدود جداً!') }}</h3>
                 <p class="text-xs md:text-sm text-indigo-100 mt-1">{{ __('استفد من الأسعار التفضيلية قبل انتهاء الوقت المتبقي.') }}</p>
             </div>
@@ -148,17 +148,17 @@
             <div class="flex items-center gap-3">
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-white" x-text="String(hours).padStart(2, '0')">18</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">ساعة</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ساعة') }}</span>
                 </div>
                 <span class="text-white font-bold text-xl">:</span>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-white" x-text="String(minutes).padStart(2, '0')">42</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">دقيقة</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('دقيقة') }}</span>
                 </div>
                 <span class="text-white font-bold text-xl">:</span>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-yellow-300" x-text="String(seconds).padStart(2, '0')">55</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">ثانية</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ثانية') }}</span>
                 </div>
             </div>
 

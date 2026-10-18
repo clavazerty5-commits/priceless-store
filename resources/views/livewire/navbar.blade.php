@@ -12,22 +12,23 @@
                     {{ $phone }}
                 </span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <!-- Theme Switcher -->
-                <button @click="darkMode = !darkMode" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 transition" title="تبديل الوضع">
+                <button @click="darkMode = !darkMode" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 transition p-1" title="تبديل الوضع">
                     <svg x-show="!darkMode" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg x-show="darkMode" style="display: none;" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
-                <!-- Language Switcher -->
-                <div x-data="{ open: false }" class="relative">
-                    <button @click="open = !open" @click.away="open = false" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 flex items-center gap-1 font-semibold">
-                        {{ app()->getLocale() == 'ar' ? 'العربية' : 'Français' }}
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <div x-show="open" style="display: none;" class="absolute right-0 mt-2 w-24 bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-lg rounded z-50">
-                        <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">العربية</a>
-                        <a href="{{ route('lang.switch', 'fr') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Français</a>
-                    </div>
+
+                <!-- Language Switcher (Direct Toggle Buttons) -->
+                <div class="flex items-center bg-gray-200 dark:bg-gray-800 rounded-full p-0.5 text-xs font-bold shadow-inner">
+                    <a href="{{ route('lang.switch', 'ar') }}" 
+                       class="px-2.5 py-1 rounded-full transition {{ app()->getLocale() == 'ar' ? 'bg-indigo-600 text-white shadow' : 'text-gray-600 dark:text-gray-400 hover:text-indigo-600' }}">
+                        العربية
+                    </a>
+                    <a href="{{ route('lang.switch', 'fr') }}" 
+                       class="px-2.5 py-1 rounded-full transition {{ app()->getLocale() == 'fr' ? 'bg-indigo-600 text-white shadow' : 'text-gray-600 dark:text-gray-400 hover:text-indigo-600' }}">
+                        Français
+                    </a>
                 </div>
             </div>
         </div>
@@ -83,7 +84,7 @@
                                     </div>
                                 </div>
                                 <button wire:click="$dispatch('add-to-cart-from-search', { id: {{ $item->id }} })" class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 font-bold transition flex items-center gap-1">
-                                    <span>أضف للسلة</span>
+                                    <span>{{ __('أضف للسلة') }}</span>
                                 </button>
                             </div>
                         @empty
@@ -113,7 +114,7 @@
                             @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-gray-700">{{ __('تسجيل الخروج') }}</button>
+                                <button type="submit" class="w-full text-right rtl:text-right ltr:text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-gray-700">{{ __('تسجيل الخروج') }}</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-700">{{ __('تسجيل الدخول') }}</a>
