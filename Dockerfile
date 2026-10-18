@@ -1,43 +1,42 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.3-apache
 
-# Install system dependencies, Nginx, Node.js and NPM
-RUN apk add --no-cache \
-    nginx \
+# Install required system tools
+RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpng-dev \
+    libonig-dev \
     libxml2-dev \
+    libsqlite3-dev \
     zip \
     unzip \
-    sqlite-dev \
-    nodejs \
-    npm
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_sqlite bcmath gd
+# Install official PHP extensions safely
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions pdo pdo_sqlite bcmath gd intl zip
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Configure Apache document root to public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN a2enmod rewrite
+
 WORKDIR /var/www/html
 
-# Copy application files
+# Copy application code (including pre-compiled public/build assets)
 COPY . .
 
-# Install Composer dependencies
+# Install PHP dependencies without dev tools
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-# Install NPM dependencies & build assets
-RUN npm ci || npm install
-RUN npm run build
+# Make start script executable
+RUN chmod +x /var/www/html/start.sh
 
-# Nginx config
-COPY nginx.conf /etc/nginx/http.d/default.conf
+# Expose ports
+EXPOSE 80 10000
 
-# Entrypoint
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-EXPOSE 80
-
-CMD ["/docker-entrypoint.sh"]
+CMD ["/var/www/html/start.sh"]
