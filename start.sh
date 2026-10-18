@@ -6,6 +6,16 @@ PORT_TO_USE="${PORT:-80}"
 sed -i "s/Listen 80/Listen $PORT_TO_USE/g" /etc/apache2/ports.conf
 sed -i "s/:80/:$PORT_TO_USE/g" /etc/apache2/sites-available/000-default.conf
 
+# Production environment variables for Render
+export APP_ENV=production
+if [ -n "$RENDER_EXTERNAL_URL" ]; then
+    export APP_URL="$RENDER_EXTERNAL_URL"
+    export ASSET_URL="$RENDER_EXTERNAL_URL"
+else
+    export APP_URL="https://priceless-store.onrender.com"
+    export ASSET_URL="https://priceless-store.onrender.com"
+fi
+
 # Ensure database directory and sqlite file exist
 mkdir -p /var/www/html/database
 if [ ! -f /var/www/html/database/database.sqlite ]; then
@@ -30,10 +40,10 @@ php artisan storage:link || true
 php artisan migrate --force || true
 php artisan db:seed --force || true
 
-# Cache configurations
-php artisan config:cache || true
-php artisan route:cache || true
-php artisan view:cache || true
+# Clear any stale local caches
+php artisan config:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
 
-echo "Starting Apache on port $PORT_TO_USE..."
+echo "Starting Apache on port $PORT_TO_USE with APP_URL=$APP_URL..."
 exec apache2-foreground

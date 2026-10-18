@@ -26,13 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        // Enforce HTTPS in production / Render
-        if (
-            $this->app->environment('production') || 
-            env('APP_ENV') === 'production' || 
-            str_contains(request()->getHost(), 'onrender.com') ||
-            request()->header('X-Forwarded-Proto') === 'https'
-        ) {
+        // Enforce HTTPS whenever not running locally on 127.0.0.1 or localhost
+        $host = request()->getHost();
+        if ($host !== '127.0.0.1' && $host !== 'localhost' && !str_starts_with($host, '192.168.')) {
             URL::forceScheme('https');
         }
     }
