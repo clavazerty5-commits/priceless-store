@@ -50,6 +50,8 @@ class SettingResource extends Resource
                         'address' => 'العنوان',
                         'delivery_fee' => 'رسوم التوصيل (د.ت)',
                         'free_delivery_threshold' => 'الحد الأدنى للشحن المجاني',
+                        'facebook_url' => 'رابط صفحة الفيسبوك',
+                        'facebook_pixel_id' => 'معرّف فيسبوك بيكسل (Pixel ID)',
                         default => $state,
                     })
                     ->weight('bold')

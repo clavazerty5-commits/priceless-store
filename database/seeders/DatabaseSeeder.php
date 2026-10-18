@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             'address' => 'تونس، شارع الحبيب بورقيبة',
             'delivery_fee' => '7.00',
             'free_delivery_threshold' => '100.00',
+            'facebook_url' => 'https://facebook.com',
+            'facebook_pixel_id' => '',
         ];
         foreach ($defaultSettings as $key => $val) {
             Setting::firstOrCreate(['key' => $key], ['value' => $val]);
