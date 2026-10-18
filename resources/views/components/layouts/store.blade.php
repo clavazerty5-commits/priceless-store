@@ -19,7 +19,7 @@
 
     @php
         $pixelId = \App\Models\Setting::where('key', 'facebook_pixel_id')->value('value');
-        $facebookUrl = \App\Models\Setting::where('key', 'facebook_url')->value('value') ?: 'https://facebook.com';
+        $facebookUrl = \App\Models\Setting::where('key', 'facebook_url')->value('value') ?: 'https://www.facebook.com/profile.php?id=61570029157830';
     @endphp
 
     @if(!empty($pixelId))

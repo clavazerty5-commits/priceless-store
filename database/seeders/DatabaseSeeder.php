@@ -35,11 +35,11 @@ class DatabaseSeeder extends Seeder
             'address' => 'تونس، شارع الحبيب بورقيبة',
             'delivery_fee' => '7.00',
             'free_delivery_threshold' => '100.00',
-            'facebook_url' => 'https://facebook.com',
+            'facebook_url' => 'https://www.facebook.com/profile.php?id=61570029157830',
             'facebook_pixel_id' => '',
         ];
         foreach ($defaultSettings as $key => $val) {
-            Setting::firstOrCreate(['key' => $key], ['value' => $val]);
+            Setting::updateOrCreate(['key' => $key], ['value' => $val]);
         }
 
         // 3. Ensure Banners
