@@ -28,14 +28,13 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'phone', 'city', 'address', 'password', 'is_admin'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser, \Filament\Models\Contracts\FilamentUser
 {
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        // Only the admin can access the Filament panel
-        return $this->email === 'admin@admin.com';
+        return (bool) ($this->is_admin || $this->email === 'admin@admin.com' || $this->id === 1);
     }
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;

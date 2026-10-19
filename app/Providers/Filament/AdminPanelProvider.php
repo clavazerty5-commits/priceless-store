@@ -25,11 +25,14 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
             ->brandName('PRICELESS')
             ->brandLogo(asset('images/logo.jpg'))
             ->brandLogoHeight('3rem')
@@ -63,19 +66,23 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationItems([
-                NavigationItem::make('زيارة المتجر')
+                NavigationItem::make($isFr ? 'Visiter la boutique' : 'زيارة المتجر')
                     ->url('/')
                     ->icon('heroicon-o-globe-alt')
+                    ->sort(-3),
+                NavigationItem::make($isFr ? 'Mon Profil (Admin)' : 'بيانات المدير (الملف الشخصي)')
+                    ->url('/admin/profile')
+                    ->icon('heroicon-o-user-circle')
                     ->sort(-2),
                 NavigationItem::make('العربية 🇹🇳')
                     ->url('/lang/ar')
                     ->icon('heroicon-o-language')
-                    ->group('اللغة / Langue')
+                    ->group($isFr ? 'Langue / اللغة' : 'اللغة / Langue')
                     ->sort(98),
                 NavigationItem::make('Français 🇫🇷')
                     ->url('/lang/fr')
                     ->icon('heroicon-o-language')
-                    ->group('اللغة / Langue')
+                    ->group($isFr ? 'Langue / اللغة' : 'اللغة / Langue')
                     ->sort(99),
             ]);
     }
