@@ -18,6 +18,8 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Http\Middleware\SetLocale;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -55,15 +57,26 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])
             ->navigationItems([
-                \Filament\Navigation\NavigationItem::make('زيارة المتجر')
+                NavigationItem::make('زيارة المتجر')
                     ->url('/')
                     ->icon('heroicon-o-globe-alt')
-                    ->sort(-1),
+                    ->sort(-2),
+                NavigationItem::make('العربية 🇹🇳')
+                    ->url('/lang/ar')
+                    ->icon('heroicon-o-language')
+                    ->group('اللغة / Langue')
+                    ->sort(98),
+                NavigationItem::make('Français 🇫🇷')
+                    ->url('/lang/fr')
+                    ->icon('heroicon-o-language')
+                    ->group('اللغة / Langue')
+                    ->sort(99),
             ]);
     }
 }

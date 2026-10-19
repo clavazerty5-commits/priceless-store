@@ -14,26 +14,45 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
+        $isFr = app()->getLocale() === 'fr';
+
         $totalSales = Order::whereIn('status', ['delivered', 'processing', 'shipped'])->sum('total');
         $ordersCount = Order::count();
         $productsCount = Product::count();
         $customersCount = User::where('email', '!=', 'admin@admin.com')->count();
 
+        $currency = $isFr ? ' DT' : ' د.ت';
+
         return [
-            Stat::make('إجمالي المبيعات', number_format($totalSales, 2) . ' د.ت')
-                ->description('الطلبات المؤكدة والمسلمة')
+            Stat::make(
+                $isFr ? 'Ventes Totales' : 'إجمالي المبيعات', 
+                number_format($totalSales, 2) . $currency
+            )
+                ->description($isFr ? 'Commandes confirmées' : 'الطلبات المؤكدة والمسلمة')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
-            Stat::make('إجمالي الطلبات', $ordersCount)
-                ->description('كافة طلبات المتجر')
+
+            Stat::make(
+                $isFr ? 'Total Commandes' : 'إجمالي الطلبات', 
+                $ordersCount
+            )
+                ->description($isFr ? 'Toutes les commandes' : 'كافة طلبات المتجر')
                 ->descriptionIcon('heroicon-m-shopping-bag')
                 ->color('primary'),
-            Stat::make('المنتجات في المتجر', $productsCount)
-                ->description('جاهزة للبيع والتسليم')
+
+            Stat::make(
+                $isFr ? 'Produits en Boutique' : 'المنتجات في المتجر', 
+                $productsCount
+            )
+                ->description($isFr ? 'Prêts à la vente' : 'جاهزة للبيع والتسليم')
                 ->descriptionIcon('heroicon-m-archive-box')
                 ->color('warning'),
-            Stat::make('العملاء المسجلين', $customersCount)
-                ->description('من حسابات المتجر')
+
+            Stat::make(
+                $isFr ? 'Clients Enregistrés' : 'العملاء المسجلين', 
+                $customersCount
+            )
+                ->description($isFr ? 'Comptes clients' : 'من حسابات المتجر')
                 ->descriptionIcon('heroicon-m-user-group')
                 ->color('info'),
         ];

@@ -17,10 +17,22 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationLabel = 'العملاء';
-    protected static ?string $modelLabel = 'عميل';
-    protected static ?string $pluralModelLabel = 'العملاء';
     protected static ?int $navigationSort = 6;
+
+    public static function getNavigationLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Clients' : 'العملاء';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Client' : 'عميل';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Clients' : 'العملاء';
+    }
 
     public static function getEloquentQuery(): Builder
     {
@@ -34,23 +46,25 @@ class CustomerResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('اسم العميل')
+                    ->label($isFr ? 'Nom du client' : 'اسم العميل')
                     ->searchable()
                     ->weight('bold'),
                 TextColumn::make('email')
-                    ->label('البريد الإلكتروني')
+                    ->label($isFr ? 'Email' : 'البريد الإلكتروني')
                     ->searchable()
                     ->copyable(),
                 TextColumn::make('orders_count')
-                    ->label('عدد الطلبات')
+                    ->label($isFr ? 'Nombre de commandes' : 'عدد الطلبات')
                     ->counts('orders')
                     ->badge()
                     ->color('info'),
                 TextColumn::make('created_at')
-                    ->label('تاريخ التسجيل')
+                    ->label($isFr ? 'Date d\'inscription' : 'تاريخ التسجيل')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
             ])

@@ -38,9 +38,9 @@
                                 {{ $banner->title }}
                             </h2>
                             <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg leading-relaxed">
-                                {{ $banner->subtitle ?? __('استمتع بأحدث التخفيضات الحصرية والتوصيل السريع لجميع المنتجات.') }}
+                                {{ $banner->subtitle ?? __('تخفيضات تصل إلى 50% على تشكيلة واسعة من المنتجات المختارة.') }}
                             </p>
-                            <a href="{{ $banner->link ?: '#products-section' }}" class="inline-flex items-center gap-2 bg-[#0e8ce4] text-white px-8 py-3.5 rounded-full font-bold uppercase tracking-wider hover:bg-blue-600 transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5">
+                            <a href="{{ $banner->link ?: '#products-section' }}" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-full font-bold uppercase tracking-wider transition shadow-lg shadow-indigo-500/30 transform hover:-translate-y-0.5">
                                 <span>{{ __('تسوق الآن') }}</span>
                                 <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
@@ -61,10 +61,10 @@
                 <!-- Fallback Banner -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                     <div class="md:w-1/2 text-center rtl:md:text-right ltr:md:text-left z-10">
-                        <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-4">{{ __('عروض حصرية') }}</span>
+                        <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-4">{{ __('عرض خاص') }}</span>
                         <h2 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-4">SUPER SALE</h2>
-                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">{{ __('خصومات حصرية تصل إلى 50% على أفضل المنتجات.') }}</p>
-                        <a href="#products-section" class="inline-block bg-[#0e8ce4] text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-blue-600 transition shadow-lg">{{ __('تسوق الآن') }}</a>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">{{ __('تخفيضات تصل إلى 50% على تشكيلة واسعة من المنتجات المختارة.') }}</p>
+                        <a href="#products-section" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-indigo-700 transition shadow-lg">{{ __('تسوق الآن') }}</a>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
                         <div class="w-72 h-72 bg-gradient-to-tr from-indigo-200 to-pink-200 rounded-2xl shadow-xl flex items-center justify-center">
@@ -89,11 +89,11 @@
 
     <!-- Top Categories Section -->
     @if($categories->count() > 0)
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div id="categories-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">{{ __('أقسام المتجر المميزة') }}</h3>
-                    <p class="text-xs text-gray-500 mt-0.5">{{ __('اختر من بين تشكيلاتنا المتنوعة') }}</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">{{ __('أقسام مميزة') }}</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">{{ __('تصفح حسب تصنيفاتك المفضلة') }}</p>
                 </div>
             </div>
 
@@ -139,31 +139,31 @@
          }">
         <div class="bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-700 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between shadow-xl gap-6">
             <div class="text-center md:text-right rtl:md:text-right ltr:md:text-left">
-                <span class="inline-block bg-white/20 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">{{ __('⚡ تخفيضات البرق') }}</span>
-                <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">{{ __('عرض خاص ومحدود جداً!') }}</h3>
-                <p class="text-xs md:text-sm text-indigo-100 mt-1">{{ __('استفد من الأسعار التفضيلية قبل انتهاء الوقت المتبقي.') }}</p>
+                <span class="inline-block bg-white/20 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">{{ __('⚡ عروض البرق') }}</span>
+                <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">{{ __('عرض خاص ولفترة محدودة!') }}</h3>
+                <p class="text-xs md:text-sm text-indigo-100 mt-1">{{ __('سارع باقتناص الفرصة قبل انتهاء الكمية.') }}</p>
             </div>
 
             <!-- Countdown Timer Blocks -->
             <div class="flex items-center gap-3">
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-white" x-text="String(hours).padStart(2, '0')">18</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ساعة') }}</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ساعات') }}</span>
                 </div>
                 <span class="text-white font-bold text-xl">:</span>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-white" x-text="String(minutes).padStart(2, '0')">42</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('دقيقة') }}</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('دقائق') }}</span>
                 </div>
                 <span class="text-white font-bold text-xl">:</span>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 text-center min-w-[70px]">
                     <span class="block text-2xl font-black text-yellow-300" x-text="String(seconds).padStart(2, '0')">55</span>
-                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ثانية') }}</span>
+                    <span class="text-[10px] text-indigo-200 uppercase font-semibold">{{ __('ثواني') }}</span>
                 </div>
             </div>
 
             <a href="#products-section" class="bg-white text-indigo-700 hover:bg-yellow-400 hover:text-gray-900 px-7 py-3 rounded-full font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex-shrink-0">
-                {{ __('شاهد العروض') }} &larr;
+                {{ __('تصفح العروض') }} &larr;
             </a>
         </div>
     </div>
@@ -173,12 +173,103 @@
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b dark:border-gray-700 pb-4">
             <div>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ __('أفضل المنتجات المختارة') }}</h2>
-                <p class="text-xs text-gray-500 mt-1">{{ __('تسوق أفضل العروض والمنتجات بأفضل الأسعار التنافسية') }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ __('اكتشف أحدث صيحات الموضة والإلكترونيات بأفضل الأسعار.') }}</p>
             </div>
         </div>
 
         <!-- Render Products List Component -->
         <livewire:product-list />
+    </div>
+
+    <!-- Customer Reviews / Social Proof Section -->
+    <div class="bg-gray-100 dark:bg-gray-950 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider mb-2 block">{{ __('آراء زبائننا') }}</span>
+                <h3 class="text-2xl md:text-3xl font-black text-gray-900 dark:text-white">{{ __('ماذا يقول عملاؤنا عن متجر PRICELESS؟') }}</h3>
+                <p class="text-xs text-gray-500 mt-2">{{ __('تجارب حقيقية لزبائن قاموا بالشراء وتمتعوا بخدماتنا وتوصيلنا السريع') }}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-3">
+                            @for($i=0; $i<5; $i++)
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            @endfor
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            "جودة المنتجات ممتازة جداً وتوصيل فائق السرعة في أقل من 48 ساعة، والدفع نقداً عند الاستلام بعد المعاينة براحة تامة. شكراً لكم!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                        <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs">
+                            أ.ب
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900 dark:text-white">أماني بن صالح</h4>
+                            <span class="text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                زبون مؤكد (تونس العاصمة)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-3">
+                            @for($i=0; $i<5; $i++)
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            @endfor
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            "تعامل راقي جداً وسرعة في الرد عبر الواتساب لتأكيد الطلب. المنتج أصلي ومطابق تماماً للصور والمواصفات المعروضة."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                        <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 font-bold flex items-center justify-center text-xs">
+                            س.ط
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900 dark:text-white">سامي الطرابلسي</h4>
+                            <span class="text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                زبون مؤكد (سوسة)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-3">
+                            @for($i=0; $i<5; $i++)
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            @endfor
+                        </div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            "اشتريت ساعة ذكية وشاحن سريع، والأسعار مقارنة بالمتاجر الأخرى ممتازة جداً. تجربة شراء سهلة وخدمة زبائن ممتازة."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                        <div class="w-9 h-9 rounded-full bg-pink-100 text-pink-700 font-bold flex items-center justify-center text-xs">
+                            م.م
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900 dark:text-white">مروى الماجري</h4>
+                            <span class="text-[10px] text-green-600 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                زبون مؤكد (صفاقس)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </x-layouts.store>

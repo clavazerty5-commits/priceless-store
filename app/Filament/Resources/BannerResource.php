@@ -23,67 +23,83 @@ class BannerResource extends Resource
 {
     protected static ?string $model = Banner::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-photo';
-    protected static ?string $navigationLabel = 'البانرات الإعلانية';
-    protected static ?string $modelLabel = 'بانر';
-    protected static ?string $pluralModelLabel = 'البانرات';
     protected static ?int $navigationSort = 4;
+
+    public static function getNavigationLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Bannières' : 'البانرات الإعلانية';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Bannière' : 'بانر';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Bannières' : 'البانرات';
+    }
 
     public static function form(Schema $schema): Schema
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('عنوان البانر الرئيسي')
+                    ->label($isFr ? 'Titre de la bannière' : 'عنوان البانر الرئيسي')
                     ->required()
                     ->placeholder('SUPER SALE'),
                 TextInput::make('badge')
-                    ->label('الشارة الترويجية')
-                    ->default('عرض خاص')
-                    ->placeholder('عرض خاص'),
+                    ->label($isFr ? 'Badge promotionnel' : 'الشارة الترويجية')
+                    ->default($isFr ? 'Offre Spéciale' : 'عرض خاص')
+                    ->placeholder($isFr ? 'Offre Spéciale' : 'عرض خاص'),
                 Textarea::make('subtitle')
-                    ->label('الوصف أو النص الفرعي')
-                    ->placeholder('تخفيضات تصل إلى 50% على تشكيلة واسعة...')
+                    ->label($isFr ? 'Sous-titre / Description' : 'الوصف أو النص الفرعي')
+                    ->placeholder($isFr ? 'Jusqu\'à 50% de réduction...' : 'تخفيضات تصل إلى 50% على تشكيلة واسعة...')
                     ->columnSpanFull(),
                 FileUpload::make('image')
-                    ->label('صورة البانر')
+                    ->label($isFr ? 'Image de la bannière' : 'صورة البانر')
                     ->image()
                     ->directory('banners')
                     ->disk('public')
                     ->columnSpanFull(),
                 TextInput::make('link')
-                    ->label('رابط التوجيه')
+                    ->label($isFr ? 'Lien de redirection' : 'رابط التوجيه')
                     ->default('#')
-                    ->placeholder('/products أو #'),
+                    ->placeholder('/products ou #'),
                 TextInput::make('order')
-                    ->label('ترتيب العرض')
+                    ->label($isFr ? 'Ordre d\'affichage' : 'ترتيب العرض')
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('تفعيل البانر')
+                    ->label($isFr ? 'Activer la bannière' : 'تفعيل البانر')
                     ->default(true),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('الصورة'),
+                    ->label($isFr ? 'Image' : 'الصورة'),
                 TextColumn::make('title')
-                    ->label('العنوان')
+                    ->label($isFr ? 'Titre' : 'العنوان')
                     ->searchable()
                     ->weight('bold'),
                 TextColumn::make('badge')
-                    ->label('الشارة'),
+                    ->label($isFr ? 'Badge' : 'الشارة'),
                 TextColumn::make('order')
-                    ->label('الترتيب')
+                    ->label($isFr ? 'Ordre' : 'الترتيب')
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('مفعّل')
+                    ->label($isFr ? 'Actif' : 'مفعّل')
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->label('تاريخ الإنشاء')
+                    ->label($isFr ? 'Date de création' : 'تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

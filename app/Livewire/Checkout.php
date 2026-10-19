@@ -72,14 +72,15 @@ class Checkout extends Component
         $this->dispatch('cart-updated');
         
         $admins = \App\Models\User::where('email', 'admin@admin.com')->get();
-        \Filament\Notifications\Notification::make()
-            ->title('طلب جديد!')
-            ->body('تم استلام طلب جديد من ' . $this->name)
-            ->success()
-            ->sendToDatabase($admins);
+        if ($admins->isNotEmpty()) {
+            \Filament\Notifications\Notification::make()
+                ->title('طلب جديد #' . $order->id)
+                ->body('قام ' . $this->name . ' بطلب جديد بمبلغ ' . $this->total . ' د.ت')
+                ->success()
+                ->sendToDatabase($admins);
+        }
 
-        session()->flash('success', 'تم استلام طلبك بنجاح! سنتواصل معك قريباً لتأكيد التوصيل.');
-        return redirect()->to('/');
+        return redirect()->route('order.success', $order);
     }
 
     public function render()

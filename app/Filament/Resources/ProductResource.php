@@ -22,41 +22,56 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-cube';
-    protected static ?string $navigationLabel = 'المنتجات';
-    protected static ?string $modelLabel = 'منتج';
-    protected static ?string $pluralModelLabel = 'المنتجات';
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Produits' : 'المنتجات';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Produit' : 'منتج';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Produits' : 'المنتجات';
+    }
 
     public static function form(Schema $schema): Schema
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('اسم المنتج')
+                    ->label($isFr ? 'Nom du produit' : 'اسم المنتج')
                     ->required(),
                 Select::make('category_id')
                     ->relationship('category', 'name')
-                    ->label('القسم')
+                    ->label($isFr ? 'Catégorie' : 'القسم')
                     ->required(),
                 TextInput::make('old_price')
-                    ->label('السعر القديم (قبل التخفيض)')
+                    ->label($isFr ? 'Ancien prix (Optionnel)' : 'السعر القديم (قبل التخفيض)')
                     ->numeric(),
                 TextInput::make('price')
-                    ->label('السعر الحالي')
+                    ->label($isFr ? 'Prix actuel' : 'السعر الحالي')
                     ->required()
                     ->numeric(),
                 TextInput::make('stock')
-                    ->label('الكمية في المخزون')
+                    ->label($isFr ? 'Quantité en stock' : 'الكمية في المخزون')
                     ->required()
                     ->numeric(),
                 FileUpload::make('image')
-                    ->label('صورة المنتج')
+                    ->label($isFr ? 'Image du produit' : 'صورة المنتج')
                     ->image()
                     ->directory('products')
                     ->disk('public')
                     ->required()
                     ->columnSpanFull(),
                 Textarea::make('description')
-                    ->label('الوصف')
+                    ->label($isFr ? 'Description' : 'الوصف')
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -64,21 +79,36 @@ class ProductResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('الصورة'),
+                    ->label($isFr ? 'Image' : 'الصورة'),
                 TextColumn::make('name')
-                    ->label('المنتج')
-                    ->searchable(),
+                    ->label($isFr ? 'Produit' : 'المنتج')
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('category.name')
-                    ->label('القسم')
+                    ->label($isFr ? 'Catégorie' : 'القسم')
                     ->sortable(),
                 TextColumn::make('price')
-                    ->label('السعر')
-                    ->sortable(),
+                    ->label($isFr ? 'Prix' : 'السعر')
+                    ->formatStateUsing(fn ($state) => number_format($state, 2) . ' ' . ($isFr ? 'DT' : 'د.ت'))
+                    ->sortable()
+                    ->weight('bold'),
                 TextColumn::make('stock')
-                    ->label('المخزون')
+                    ->label($isFr ? 'Stock' : 'المخزون')
+                    ->badge()
+                    ->color(fn (int $state): string => match (true) {
+                        $state <= 3 => 'danger',
+                        $state <= 10 => 'warning',
+                        default => 'success',
+                    })
+                    ->formatStateUsing(fn ($state) => $state <= 3 
+                        ? ($state . ' ⚠️ ' . ($isFr ? '(Stock Faible)' : '(مخزون منخفض)')) 
+                        : $state
+                    )
                     ->sortable(),
             ])
             ->filters([

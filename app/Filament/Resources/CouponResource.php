@@ -22,70 +22,90 @@ class CouponResource extends Resource
 {
     protected static ?string $model = Coupon::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-ticket';
-    protected static ?string $navigationLabel = 'كوبونات الخصم';
-    protected static ?string $modelLabel = 'كوبون خصم';
-    protected static ?string $pluralModelLabel = 'الكوبونات';
     protected static ?int $navigationSort = 5;
+
+    public static function getNavigationLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Codes Promo' : 'كوبونات الخصم';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Code Promo' : 'كوبون خصم';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return app()->getLocale() === 'fr' ? 'Codes Promo' : 'الكوبونات';
+    }
 
     public static function form(Schema $schema): Schema
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $schema
             ->components([
                 TextInput::make('code')
-                    ->label('كود الكوبون')
+                    ->label($isFr ? 'Code promo' : 'كود الكوبون')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->placeholder('مثال: PRICELESS10'),
+                    ->placeholder('PRICELESS10'),
                 Select::make('type')
-                    ->label('نوع الخصم')
+                    ->label($isFr ? 'Type de réduction' : 'نوع الخصم')
                     ->options([
-                        'fixed' => 'مبلغ ثابت (د.ت)',
-                        'percent' => 'نسبة مئوية (%)',
+                        'fixed' => $isFr ? 'Montant fixe (DT)' : 'مبلغ ثابت (د.ت)',
+                        'percent' => $isFr ? 'Pourcentage (%)' : 'نسبة مئوية (%)',
                     ])
                     ->default('fixed')
                     ->required(),
                 TextInput::make('value')
-                    ->label('قيمة الخصم')
+                    ->label($isFr ? 'Valeur de la réduction' : 'قيمة الخصم')
                     ->numeric()
                     ->required()
                     ->placeholder('10'),
                 TextInput::make('min_order_amount')
-                    ->label('الحد الأدنى للطلب (د.ت)')
+                    ->label($isFr ? 'Montant minimum d\'achat (DT)' : 'الحد الأدنى للطلب (د.ت)')
                     ->numeric()
-                    ->placeholder('اختياري - مثلاً 50'),
+                    ->placeholder($isFr ? 'Optionnel - ex: 50' : 'اختياري - مثلاً 50'),
                 DatePicker::make('expires_at')
-                    ->label('تاريخ انتهاء الصلاحية')
-                    ->placeholder('اختياري'),
+                    ->label($isFr ? 'Date d\'expiration' : 'تاريخ انتهاء الصلاحية')
+                    ->placeholder($isFr ? 'Optionnel' : 'اختياري'),
                 Toggle::make('is_active')
-                    ->label('تفعيل الكوبون')
+                    ->label($isFr ? 'Activer le coupon' : 'تفعيل الكوبون')
                     ->default(true),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $isFr = app()->getLocale() === 'fr';
+
         return $table
             ->columns([
                 TextColumn::make('code')
-                    ->label('الكود')
+                    ->label($isFr ? 'Code' : 'الكود')
                     ->searchable()
                     ->weight('bold')
                     ->copyable(),
                 TextColumn::make('type')
-                    ->label('النوع')
-                    ->formatStateUsing(fn ($state) => $state === 'percent' ? 'نسبة مئوية (%)' : 'مبلغ ثابت (د.ت)'),
+                    ->label($isFr ? 'Type' : 'النوع')
+                    ->formatStateUsing(fn ($state) => $state === 'percent' 
+                        ? ($isFr ? 'Pourcentage (%)' : 'نسبة مئوية (%)') 
+                        : ($isFr ? 'Montant fixe (DT)' : 'مبلغ ثابت (د.ت)')),
                 TextColumn::make('value')
-                    ->label('القيمة')
-                    ->formatStateUsing(fn ($record) => $record->type === 'percent' ? "{$record->value}%" : "{$record->value} د.ت"),
+                    ->label($isFr ? 'Valeur' : 'القيمة')
+                    ->formatStateUsing(fn ($record) => $record->type === 'percent' 
+                        ? "{$record->value}%" 
+                        : "{$record->value} " . ($isFr ? 'DT' : 'د.ت')),
                 TextColumn::make('min_order_amount')
-                    ->label('الحد الأدنى للطلب')
-                    ->formatStateUsing(fn ($state) => $state ? "{$state} د.ت" : '-'),
+                    ->label($isFr ? 'Min. Commande' : 'الحد الأدنى للطلب')
+                    ->formatStateUsing(fn ($state) => $state ? "{$state} " . ($isFr ? 'DT' : 'د.ت') : '-'),
                 TextColumn::make('expires_at')
-                    ->label('تاريخ الانتهاء')
+                    ->label($isFr ? 'Expiration' : 'تاريخ الانتهاء')
                     ->date()
-                    ->placeholder('غير محدد'),
+                    ->placeholder($isFr ? 'Permanent' : 'غير محدد'),
                 IconColumn::make('is_active')
-                    ->label('مفعّل')
+                    ->label($isFr ? 'Actif' : 'مفعّل')
                     ->boolean(),
             ])
             ->recordActions([
