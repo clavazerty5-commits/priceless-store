@@ -35,17 +35,17 @@ class ProductResource extends Resource
                     ->required(),
                 Select::make('category_id')
                     ->relationship('category', 'name')
-                    ->label('التصنيف')
+                    ->label('القسم')
                     ->required(),
                 TextInput::make('old_price')
-                    ->label('السعر القديم (اختياري)')
+                    ->label('السعر القديم (قبل التخفيض)')
                     ->numeric(),
                 TextInput::make('price')
-                    ->label('السعر الجديد')
+                    ->label('السعر الحالي')
                     ->required()
                     ->numeric(),
                 TextInput::make('stock')
-                    ->label('الكمية المتوفرة')
+                    ->label('الكمية في المخزون')
                     ->required()
                     ->numeric(),
                 FileUpload::make('image')
@@ -69,16 +69,16 @@ class ProductResource extends Resource
                 ImageColumn::make('image')
                     ->label('الصورة'),
                 TextColumn::make('name')
-                    ->label('الاسم')
+                    ->label('المنتج')
                     ->searchable(),
                 TextColumn::make('category.name')
-                    ->label('التصنيف')
+                    ->label('القسم')
                     ->sortable(),
                 TextColumn::make('price')
                     ->label('السعر')
                     ->sortable(),
                 TextColumn::make('stock')
-                    ->label('الكمية')
+                    ->label('المخزون')
                     ->sortable(),
             ])
             ->filters([

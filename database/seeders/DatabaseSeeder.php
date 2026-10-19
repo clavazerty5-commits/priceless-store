@@ -27,34 +27,34 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Ensure Settings
+        // 2. Ensure Settings (firstOrCreate preserves user modifications)
         $defaultSettings = [
             'store_name' => 'PRICELESS',
             'phone' => '+216 23 456 789',
             'email' => 'info@priceless.com',
-            'address' => 'تونس، شارع الحبيب بورقيبة',
+            'address' => 'تونس العاصمة، تونس',
             'delivery_fee' => '7.00',
             'free_delivery_threshold' => '100.00',
             'facebook_url' => 'https://www.facebook.com/profile.php?id=61570029157830',
             'facebook_pixel_id' => '',
         ];
         foreach ($defaultSettings as $key => $val) {
-            Setting::updateOrCreate(['key' => $key], ['value' => $val]);
+            Setting::firstOrCreate(['key' => $key], ['value' => $val]);
         }
 
         // 3. Ensure Banners
         if (Banner::count() === 0) {
             Banner::create([
                 'title' => 'SUPER SALE',
-                'subtitle' => 'خصومات تصل إلى 50% على الأجهزة الإلكترونية والهواتف الذكية.',
-                'badge' => 'عروض حصرية',
+                'subtitle' => 'تخفيضات تصل إلى 50% على تشكيلة واسعة من المنتجات المختارة.',
+                'badge' => 'عرض خاص',
                 'link' => '#',
                 'order' => 1,
                 'is_active' => true,
             ]);
             Banner::create([
                 'title' => 'NEW ARRIVALS',
-                'subtitle' => 'أحدث المنتجات العصرية بأفضل الأسعار مع ضمان كامل وتوصيل سريع.',
+                'subtitle' => 'اكتشف أحدث صيحات الموضة والإلكترونيات بأفضل الأسعار.',
                 'badge' => 'وصل حديثاً',
                 'link' => '#',
                 'order' => 2,
@@ -90,8 +90,8 @@ class DatabaseSeeder extends Seeder
             $cat4 = Category::create(['name' => 'إكسسوارات', 'slug' => 'accessories']);
 
             Product::create([
-                'name' => 'سماعات لاسلكية برو عالية الدقة',
-                'description' => 'سماعات بلوتوث عالية الجودة مع عزل الضوضاء وبطارية تدوم طويلاً.',
+                'name' => 'سماعات لاسلكية عالية الدقة',
+                'description' => 'سماعات بلوتوث مريحة وعازلة للضوضاء تعمل حتى 30 ساعة متواصلة.',
                 'price' => 89.00,
                 'old_price' => 129.00,
                 'category_id' => $cat1->id,
@@ -100,8 +100,8 @@ class DatabaseSeeder extends Seeder
             ]);
 
             Product::create([
-                'name' => 'ساعة ذكية مقاومة للماء مع تتبع اللياقة',
-                'description' => 'ساعة رياضية ذكية مع شاشة لمس AMOLED ومستشعر دقات القلب.',
+                'name' => 'ساعة ذكية رياضية مقاومة للماء',
+                'description' => 'ساعة ذكية متطورة مع شاشة AMOLED لمتابعة الصحة والتمارين الرياضية بدقة.',
                 'price' => 145.00,
                 'old_price' => 199.00,
                 'category_id' => $cat3->id,
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
 
             Product::create([
                 'name' => 'شاحن سريع 65 واط بتقنية GaN',
-                'description' => 'شاحن جداري متعدد المنافذ يدعم الشحن فائق السرعة لجميع الأجهزة.',
+                'description' => 'شاحن فائق السرعة متوافق مع كافة الهواتف والحواسيب المحمولة بحجم مدمج وأمان عالي.',
                 'price' => 45.00,
                 'old_price' => 60.00,
                 'category_id' => $cat4->id,

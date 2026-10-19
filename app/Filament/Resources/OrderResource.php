@@ -33,8 +33,8 @@ class OrderResource extends Resource
                     ->label('حالة الطلب')
                     ->options([
                         'pending' => 'قيد الانتظار',
-                        'processing' => 'جاري التجهيز',
-                        'shipped' => 'في الطريق إليك',
+                        'processing' => 'قيد التجهيز',
+                        'shipped' => 'تم الشحن',
                         'delivered' => 'تم التوصيل',
                         'cancelled' => 'ملغي',
                     ])
@@ -62,14 +62,14 @@ class OrderResource extends Resource
                     ->label('العميل')
                     ->searchable(),
                 TextColumn::make('total')
-                    ->label('المجموع')
+                    ->label('الإجمالي')
                     ->sortable(),
                 SelectColumn::make('status')
                     ->label('الحالة')
                     ->options([
                         'pending' => 'قيد الانتظار',
-                        'processing' => 'جاري التجهيز',
-                        'shipped' => 'في الطريق إليك',
+                        'processing' => 'قيد التجهيز',
+                        'shipped' => 'تم الشحن',
                         'delivered' => 'تم التوصيل',
                         'cancelled' => 'ملغي',
                     ])

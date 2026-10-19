@@ -60,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->navigationItems([
-                \Filament\Navigation\NavigationItem::make('العودة للمتجر')
+                \Filament\Navigation\NavigationItem::make('زيارة المتجر')
                     ->url('/')
                     ->icon('heroicon-o-globe-alt')
                     ->sort(-1),

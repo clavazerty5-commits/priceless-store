@@ -14,26 +14,26 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $totalSales = Order::where('status', 'completed')->orWhere('status', 'delivered')->sum('total_price');
+        $totalSales = Order::whereIn('status', ['delivered', 'processing', 'shipped'])->sum('total');
         $ordersCount = Order::count();
         $productsCount = Product::count();
         $customersCount = User::where('email', '!=', 'admin@admin.com')->count();
 
         return [
             Stat::make('إجمالي المبيعات', number_format($totalSales, 2) . ' د.ت')
-                ->description('المبيعات المحققة')
+                ->description('الطلبات المؤكدة والمسلمة')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
             Stat::make('إجمالي الطلبات', $ordersCount)
-                ->description('جميع طلبات العملاء')
+                ->description('كافة طلبات المتجر')
                 ->descriptionIcon('heroicon-m-shopping-bag')
                 ->color('primary'),
             Stat::make('المنتجات في المتجر', $productsCount)
-                ->description('إجمالي المنتجات المتاحة')
+                ->description('جاهزة للبيع والتسليم')
                 ->descriptionIcon('heroicon-m-archive-box')
                 ->color('warning'),
             Stat::make('العملاء المسجلين', $customersCount)
-                ->description('عدد الزبائن في المتجر')
+                ->description('من حسابات المتجر')
                 ->descriptionIcon('heroicon-m-user-group')
                 ->color('info'),
         ];

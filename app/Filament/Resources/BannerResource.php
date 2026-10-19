@@ -33,16 +33,16 @@ class BannerResource extends Resource
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('عنوان العرض الرئيسي')
+                    ->label('عنوان البانر الرئيسي')
                     ->required()
                     ->placeholder('SUPER SALE'),
                 TextInput::make('badge')
                     ->label('الشارة الترويجية')
-                    ->default('عروض حصرية')
-                    ->placeholder('عروض حصرية'),
+                    ->default('عرض خاص')
+                    ->placeholder('عرض خاص'),
                 Textarea::make('subtitle')
-                    ->label('الوصف أو التفاصيل')
-                    ->placeholder('خصومات تصل إلى 50% على الأجهزة...')
+                    ->label('الوصف أو النص الفرعي')
+                    ->placeholder('تخفيضات تصل إلى 50% على تشكيلة واسعة...')
                     ->columnSpanFull(),
                 FileUpload::make('image')
                     ->label('صورة البانر')
@@ -51,11 +51,11 @@ class BannerResource extends Resource
                     ->disk('public')
                     ->columnSpanFull(),
                 TextInput::make('link')
-                    ->label('رابط الزر')
+                    ->label('رابط التوجيه')
                     ->default('#')
                     ->placeholder('/products أو #'),
                 TextInput::make('order')
-                    ->label('ترتيب الظهور')
+                    ->label('ترتيب العرض')
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
@@ -80,10 +80,10 @@ class BannerResource extends Resource
                     ->label('الترتيب')
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('مفعل')
+                    ->label('مفعّل')
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->label('تاريخ الإضافة')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

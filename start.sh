@@ -16,7 +16,23 @@ else
     export ASSET_URL="https://priceless-store.onrender.com"
 fi
 
-# Ensure database directory and sqlite file exist
+# PostgreSQL Database Configuration
+DEFAULT_PGSQL_URL="postgresql://priceless_db_jqad_user:ocOuRkIh1XbQ13Sd4nrKfjyqA22Y5J5T@dpg-dbav7gbrjlhs73aqj66g-a/priceless_db_jqad"
+
+if [ -n "$DATABASE_URL" ]; then
+    export DB_CONNECTION=pgsql
+    export DB_URL="$DATABASE_URL"
+elif [ -n "$DB_URL" ]; then
+    export DB_CONNECTION=pgsql
+elif [ "$DB_CONNECTION" = "pgsql" ] || [ -z "$DB_CONNECTION" ]; then
+    export DB_CONNECTION=pgsql
+    export DATABASE_URL="$DEFAULT_PGSQL_URL"
+    export DB_URL="$DEFAULT_PGSQL_URL"
+fi
+
+echo "Database connection configured as: $DB_CONNECTION"
+
+# Ensure database directory and sqlite file exist as fallback
 mkdir -p /var/www/html/database
 if [ ! -f /var/www/html/database/database.sqlite ]; then
     touch /var/www/html/database/database.sqlite
@@ -37,10 +53,12 @@ chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/d
 php artisan storage:link || true
 
 # Run database migrations and seeds
+echo "Running migrations..."
 php artisan migrate --force || true
+echo "Running seeders..."
 php artisan db:seed --force || true
 
-# Clear any stale local caches
+# Clear stale caches
 php artisan config:clear || true
 php artisan route:clear || true
 php artisan view:clear || true

@@ -33,7 +33,7 @@ class SettingResource extends Resource
                 TextInput::make('value')
                     ->label('القيمة')
                     ->required()
-                    ->placeholder('القيمة المطلوبة'),
+                    ->placeholder('أدخل قيمة الإعداد'),
             ]);
     }
 
@@ -48,10 +48,10 @@ class SettingResource extends Resource
                         'phone' => 'رقم الهاتف',
                         'email' => 'البريد الإلكتروني',
                         'address' => 'العنوان',
-                        'delivery_fee' => 'رسوم التوصيل (د.ت)',
-                        'free_delivery_threshold' => 'الحد الأدنى للشحن المجاني',
-                        'facebook_url' => 'رابط صفحة الفيسبوك',
-                        'facebook_pixel_id' => 'معرّف فيسبوك بيكسل (Pixel ID)',
+                        'delivery_fee' => 'سعر التوصيل (د.ت)',
+                        'free_delivery_threshold' => 'قيمة الطلب للشحن المجاني',
+                        'facebook_url' => 'رابط صفحة الفايسبوك',
+                        'facebook_pixel_id' => 'معرّف بيكسل فايسبوك (Pixel ID)',
                         default => $state,
                     })
                     ->weight('bold')

@@ -1,6 +1,6 @@
 FROM php:8.4-apache
 
-# Install required system tools
+# Install required system tools and PostgreSQL client libraries
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -8,13 +8,14 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libsqlite3-dev \
+    libpq-dev \
     zip \
     unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install official PHP extensions safely
+# Install official PHP extensions safely (including PostgreSQL)
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions pdo pdo_sqlite bcmath gd intl zip
+RUN install-php-extensions pdo pdo_sqlite pdo_pgsql pgsql bcmath gd intl zip
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

@@ -21,25 +21,25 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-tag';
-    protected static ?string $navigationLabel = 'التصنيفات';
-    protected static ?string $modelLabel = 'تصنيف';
-    protected static ?string $pluralModelLabel = 'التصنيفات';
+    protected static ?string $navigationLabel = 'الأقسام';
+    protected static ?string $modelLabel = 'قسم';
+    protected static ?string $pluralModelLabel = 'الأقسام';
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('اسم التصنيف')
+                    ->label('اسم القسم')
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (string $operation, $state, $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                 TextInput::make('slug')
-                    ->label('الرابط المختصر (Slug)')
+                    ->label('المعرف اللطيف (Slug)')
                     ->required()
                     ->unique(ignoreRecord: true),
                 FileUpload::make('image')
-                    ->label('صورة التصنيف')
+                    ->label('صورة القسم')
                     ->image()
                     ->directory('categories')
                     ->disk('public')
@@ -54,13 +54,13 @@ class CategoryResource extends Resource
                 ImageColumn::make('image')
                     ->label('الصورة'),
                 TextColumn::make('name')
-                    ->label('اسم التصنيف')
+                    ->label('اسم القسم')
                     ->searchable(),
                 TextColumn::make('slug')
-                    ->label('الرابط المختصر')
+                    ->label('المعرف اللطيف')
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('تاريخ الإضافة')
+                    ->label('تاريخ الإنشاء')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

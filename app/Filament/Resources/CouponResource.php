@@ -54,7 +54,7 @@ class CouponResource extends Resource
                     ->numeric()
                     ->placeholder('اختياري - مثلاً 50'),
                 DatePicker::make('expires_at')
-                    ->label('تاريخ الانتهاء')
+                    ->label('تاريخ انتهاء الصلاحية')
                     ->placeholder('اختياري'),
                 Toggle::make('is_active')
                     ->label('تفعيل الكوبون')
@@ -78,14 +78,14 @@ class CouponResource extends Resource
                     ->label('القيمة')
                     ->formatStateUsing(fn ($record) => $record->type === 'percent' ? "{$record->value}%" : "{$record->value} د.ت"),
                 TextColumn::make('min_order_amount')
-                    ->label('الحد الأدنى')
+                    ->label('الحد الأدنى للطلب')
                     ->formatStateUsing(fn ($state) => $state ? "{$state} د.ت" : '-'),
                 TextColumn::make('expires_at')
                     ->label('تاريخ الانتهاء')
                     ->date()
                     ->placeholder('غير محدد'),
                 IconColumn::make('is_active')
-                    ->label('مفعل')
+                    ->label('مفعّل')
                     ->boolean(),
             ])
             ->recordActions([
