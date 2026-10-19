@@ -13,12 +13,12 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Actions\ViewAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\BulkActionGroup;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomerResource extends Resource
 {
@@ -135,6 +135,14 @@ class CustomerResource extends Resource
                     ->label($isFr ? 'Date d\'inscription' : 'تاريخ التسجيل')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
+            ])
+            ->filters([
+                SelectFilter::make('is_admin')
+                    ->label($isFr ? 'Type de compte' : 'نوع الحساب')
+                    ->options([
+                        '0' => $isFr ? 'Clients' : 'العملاء',
+                        '1' => $isFr ? 'Administrateurs' : 'المدراء',
+                    ]),
             ])
             ->defaultSort('created_at', 'desc')
             ->recordActions([
