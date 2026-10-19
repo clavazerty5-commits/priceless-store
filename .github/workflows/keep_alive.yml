@@ -1,0 +1,14 @@
+name: Keep Store Awake 24/7
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Store Health Endpoint
+        run: |
+          curl -f -s https://priceless-store.onrender.com/up || true
