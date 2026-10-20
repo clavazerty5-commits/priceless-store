@@ -49,7 +49,8 @@ mkdir -p /var/www/html/storage/framework/sessions \
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Storage link
+# Storage link: Remove any stale Windows junction and create fresh Linux symlink
+rm -rf /var/www/html/public/storage
 php artisan storage:link || true
 
 # Run database migrations and seeds

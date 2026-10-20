@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
                 'title' => 'SUPER SALE',
                 'subtitle' => 'تخفيضات تصل إلى 50% على تشكيلة واسعة من المنتجات المختارة.',
                 'badge' => 'عرض خاص',
-                'link' => '#',
+                'image' => 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80',
+                'link' => '#products-section',
                 'order' => 1,
                 'is_active' => true,
             ]);
@@ -57,7 +58,8 @@ class DatabaseSeeder extends Seeder
                 'title' => 'NEW ARRIVALS',
                 'subtitle' => 'اكتشف أحدث صيحات الموضة والإلكترونيات بأفضل الأسعار.',
                 'badge' => 'وصل حديثاً',
-                'link' => '#',
+                'image' => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80',
+                'link' => '#products-section',
                 'order' => 2,
                 'is_active' => true,
             ]);
@@ -85,40 +87,62 @@ class DatabaseSeeder extends Seeder
 
         // 5. Ensure Categories & Products
         if (Category::count() === 0) {
-            $cat1 = Category::create(['name' => 'إلكترونيات', 'slug' => 'electronics']);
-            $cat2 = Category::create(['name' => 'هواتف ذكية', 'slug' => 'smartphones']);
-            $cat3 = Category::create(['name' => 'ساعات ذكية', 'slug' => 'smartwatches']);
-            $cat4 = Category::create(['name' => 'إكسسوارات', 'slug' => 'accessories']);
+            $cat1 = Category::create([
+                'name' => 'إلكترونيات', 
+                'slug' => 'electronics',
+                'image' => 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=80',
+            ]);
+            $cat2 = Category::create([
+                'name' => 'هواتف ذكية', 
+                'slug' => 'smartphones',
+                'image' => 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80',
+            ]);
+            $cat3 = Category::create([
+                'name' => 'ساعات ذكية', 
+                'slug' => 'smartwatches',
+                'image' => 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80',
+            ]);
+            $cat4 = Category::create([
+                'name' => 'إكسسوارات', 
+                'slug' => 'accessories',
+                'image' => 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
+            ]);
 
             Product::create([
                 'name' => 'سماعات لاسلكية عالية الدقة',
-                'description' => 'سماعات بلوتوث مريحة وعازلة للضوضاء تعمل حتى 30 ساعة متواصلة.',
+                'description' => 'سماعات بلوتوث مريحة وعازلة للضوضاء تعمل حتى 30 ساعة متواصلة مع جودة صوت نقية وعميقة.',
                 'price' => 89.00,
                 'old_price' => 129.00,
                 'category_id' => $cat1->id,
                 'stock' => 25,
-                'image' => 'https://picsum.photos/seed/headphones/600/400',
+                'image' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
             ]);
 
             Product::create([
                 'name' => 'ساعة ذكية رياضية مقاومة للماء',
-                'description' => 'ساعة ذكية متطورة مع شاشة AMOLED لمتابعة الصحة والتمارين الرياضية بدقة.',
+                'description' => 'ساعة ذكية متطورة مع شاشة AMOLED لمتابعة الصحة والتمارين الرياضية بدقة وبطارية تدوم طويلاً.',
                 'price' => 145.00,
                 'old_price' => 199.00,
                 'category_id' => $cat3->id,
                 'stock' => 15,
-                'image' => 'https://picsum.photos/seed/smartwatch/600/400',
+                'image' => 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80',
             ]);
 
             Product::create([
                 'name' => 'شاحن سريع 65 واط بتقنية GaN',
-                'description' => 'شاحن فائق السرعة متوافق مع كافة الهواتف والحواسيب المحمولة بحجم مدمج وأمان عالي.',
+                'description' => 'شاحن فائق السرعة متوافق مع كافة الهواتف والحواسيب المحمولة بحجم مدمج وأمان عالي للشحن السريع.',
                 'price' => 45.00,
                 'old_price' => 60.00,
                 'category_id' => $cat4->id,
                 'stock' => 40,
-                'image' => 'https://picsum.photos/seed/charger/600/400',
+                'image' => 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
             ]);
+        } else {
+            // Fill default permanent images for existing seeded categories if empty
+            Category::where('slug', 'electronics')->whereNull('image')->update(['image' => 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=80']);
+            Category::where('slug', 'smartphones')->whereNull('image')->update(['image' => 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80']);
+            Category::where('slug', 'smartwatches')->whereNull('image')->update(['image' => 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80']);
+            Category::where('slug', 'accessories')->whereNull('image')->update(['image' => 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80']);
         }
     }
 }

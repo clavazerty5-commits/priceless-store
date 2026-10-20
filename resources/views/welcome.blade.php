@@ -48,7 +48,7 @@
 
                         <div class="md:w-1/2 flex justify-center relative">
                             @if($banner->image)
-                                <img src="{{ Storage::url($banner->image) }}" alt="{{ $banner->title }}" class="max-h-80 md:max-h-96 object-contain rounded-2xl shadow-xl">
+                                <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}" class="max-h-80 md:max-h-96 object-contain rounded-2xl shadow-xl">
                             @else
                                 <div class="w-72 h-72 md:w-80 md:h-80 bg-gradient-to-tr from-indigo-300 to-purple-300 dark:from-indigo-800 dark:to-purple-900 rounded-3xl shadow-2xl flex items-center justify-center p-8 transform rotate-3 hover:rotate-0 transition duration-500">
                                     <svg class="w-36 h-36 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -102,7 +102,7 @@
                     <a href="#products-section" class="bg-white dark:bg-gray-800 rounded-2xl p-4 text-center border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-indigo-500 transition group flex flex-col items-center">
                         <div class="w-16 h-16 rounded-full bg-indigo-50 dark:bg-gray-700 flex items-center justify-center mb-3 group-hover:scale-110 transition duration-300 overflow-hidden">
                             @if($category->image)
-                                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
+                                <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
                             @else
                                 <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                             @endif

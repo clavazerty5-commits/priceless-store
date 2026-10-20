@@ -86,7 +86,7 @@
                             <div class="p-3 hover:bg-indigo-50 dark:hover:bg-gray-700 transition flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <div class="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center">
-                                        <img src="{{ Str::startsWith($item->image, ['http://', 'https://']) ? $item->image : Storage::url($item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-contain">
+                                        <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="w-full h-full object-contain">
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-bold text-gray-800 dark:text-white line-clamp-1">{{ $item->name }}</h4>
