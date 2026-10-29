@@ -66,10 +66,16 @@ class ProductResource extends Resource
                 FileUpload::make('image')
                     ->label($isFr ? 'Image du produit' : 'صورة المنتج')
                     ->image()
+                    ->imageEditor()
+                    ->imageCropAspectRatio('1:1')
+                    ->imageResizeMode('cover')
+                    ->imageResizeTargetWidth('800')
+                    ->imageResizeTargetHeight('800')
                     ->directory('products')
                     ->disk('public')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText($isFr ? 'Format carré 1:1 recommandé. Vous pouvez recadrer l\'image directement ici.' : 'يُفضل تنسيق مربع 1:1. يمكنك قص وتعديل أبعاد الصورة مباشرة من هنا.'),
                 Textarea::make('description')
                     ->label($isFr ? 'Description' : 'الوصف')
                     ->required()

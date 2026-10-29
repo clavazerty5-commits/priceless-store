@@ -61,9 +61,12 @@ class BannerResource extends Resource
                 FileUpload::make('image')
                     ->label($isFr ? 'Image de la bannière' : 'صورة البانر')
                     ->image()
+                    ->imageEditor()
+                    ->imageCropAspectRatio('16:9')
                     ->directory('banners')
                     ->disk('public')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText($isFr ? 'Format paysage 16:9 recommandé pour les bannières.' : 'يُفضل تنسيق عرضي 16:9 للبانرات.'),
                 TextInput::make('link')
                     ->label($isFr ? 'Lien de redirection' : 'رابط التوجيه')
                     ->default('#')

@@ -100,11 +100,11 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 @foreach($categories as $category)
                     <a href="#products-section" class="bg-white dark:bg-gray-800 rounded-2xl p-4 text-center border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-indigo-500 transition group flex flex-col items-center">
-                        <div class="w-16 h-16 rounded-full bg-indigo-50 dark:bg-gray-700 flex items-center justify-center mb-3 group-hover:scale-110 transition duration-300 overflow-hidden">
+                        <div class="w-20 h-20 rounded-2xl bg-indigo-50/70 dark:bg-gray-700/60 p-2.5 flex items-center justify-center mb-3 group-hover:scale-105 transition duration-300 overflow-hidden border border-indigo-100/50 dark:border-gray-600">
                             @if($category->image)
-                                <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
+                                <img src="{{ $category->image_url }}" alt="{{ $category->name }}" class="w-full h-full max-h-full max-w-full object-contain">
                             @else
-                                <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                <svg class="w-9 h-9 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                             @endif
                         </div>
                         <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 transition">{{ $category->name }}</h4>

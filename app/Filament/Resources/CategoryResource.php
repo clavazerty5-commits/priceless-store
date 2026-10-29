@@ -56,9 +56,12 @@ class CategoryResource extends Resource
                 FileUpload::make('image')
                     ->label($isFr ? 'Image de la catégorie' : 'صورة القسم')
                     ->image()
+                    ->imageEditor()
+                    ->imageCropAspectRatio('1:1')
                     ->directory('categories')
                     ->disk('public')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->helperText($isFr ? 'Format carré 1:1 recommandé.' : 'يُفضل تنسيق مربع 1:1 للأقسام.'),
             ]);
     }
 
